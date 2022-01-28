@@ -7,19 +7,14 @@ import (
 	yaml "gopkg.in/yaml.v2"
 )
 
-type Config struct {
-	Server struct {
-		Env string `yaml:"environment"`
-	}
-}
-
+// GetConfiguration retrieves configuration from config file
 func GetConfiguration() *Config {
 	var config Config
 	configFile, err := os.Open("./config/config.yaml")
-	defer configFile.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
+	defer configFile.Close()
 
 	decoder := yaml.NewDecoder(configFile)
 	err = decoder.Decode(&config)

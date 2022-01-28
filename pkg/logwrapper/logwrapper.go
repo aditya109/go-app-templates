@@ -11,6 +11,7 @@ type StandardLogger struct {
 	*log.Logger
 }
 
+// NewLogger returns a configured logger object
 func NewLogger(env string) *StandardLogger {
 	var baseLogger = log.New()
 	var standardLogger = &StandardLogger{baseLogger}
