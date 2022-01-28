@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
+	rt "github.com/aditya109/go-server-template/internal/router"
 	cfg "github.com/aditya109/go-server-template/pkg/config"
 	log "github.com/aditya109/go-server-template/pkg/logwrapper"
-	"github.com/gorilla/mux"
 )
 
 var (
@@ -20,10 +20,6 @@ var (
 	writeTimeout time.Duration
 	readTimeout  time.Duration
 )
-
-func welcomeHandler(w http.ResponseWriter, req *http.Request) {
-	fmt.Fprintf(w, "welcome to server ⚡ !")
-}
 
 func main() {
 	// retrieving configuration
@@ -64,8 +60,7 @@ func main() {
 	}
 
 	// configuring router for the server
-	router := mux.NewRouter()
-	router.HandleFunc("/", welcomeHandler)
+	router := rt.ConfigureRouter()
 	logger.Info("router configuration successful")
 
 	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
