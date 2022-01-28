@@ -1,2 +1,2 @@
 server:
-    environment: "production"
+    environment: "dev" # applicable values- prod, dev, stag
