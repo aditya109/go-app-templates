@@ -1,0 +1,53 @@
+basePath: /
+consumes:
+- application/json
+definitions:
+  Item:
+    description: Items defines the structure of an API item
+    properties:
+      Id:
+        format: int64
+        type: integer
+      Name:
+        type: string
+    type: object
+    x-go-package: github.com/aditya109/go-server-template/internal/models
+info:
+  description: Documentation of crud-template API
+  title: http API
+  version: 1.0.0
+paths:
+  /:
+    get:
+      description: Returns a welcome message
+      operationId: welcome
+      responses:
+        "200":
+          $ref: '#/responses/WelcomeResponse'
+      tags:
+      - home
+  /items:
+    get:
+      description: Returns a list of items, no query params required
+      operationId: listItems
+      responses:
+        "200":
+          $ref: '#/responses/SimpleGetResponse'
+      tags:
+      - items
+produces:
+- application/json
+responses:
+  SimpleGetResponse:
+    description: A list of items returns in the response
+    schema:
+      items:
+        $ref: '#/definitions/Item'
+      type: array
+  welcomeResponse:
+    description: A welcome response shown on / URL
+    schema:
+      type: string
+schemes:
+- http
+swagger: "2.0"

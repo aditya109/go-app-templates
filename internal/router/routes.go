@@ -16,12 +16,21 @@ type Route struct {
 type Routes []Route
 
 var routes = Routes{
+
+	// swagger:route GET / home welcome
+	// Returns a welcome message
+	// responses:
+	// 	200: WelcomeResponse
 	Route{
 		"WelcomeHandler",
 		"GET",
 		"/",
 		h.WelcomeHandler,
 	},
+	// swagger:route GET /items items listItems
+	// Returns a list of items, no query params required
+	// responses:
+	// 	200: SimpleGetResponse
 	Route{
 		"SimpleGetHandler",
 		"GET",
