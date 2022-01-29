@@ -5,9 +5,9 @@ import (
 	"net/http"
 	"time"
 
-	rt "github.com/aditya109/go-app-template/http-server/internal/router"
-	cfg "github.com/aditya109/go-app-template/http-server/pkg/config"
-	log "github.com/aditya109/go-app-template/http-server/pkg/logwrapper"
+	rt "github.com/aditya109/go-server-template/internal/router"
+	cfg "github.com/aditya109/go-server-template/pkg/config"
+	log "github.com/aditya109/go-server-template/pkg/logwrapper"
 )
 
 var (

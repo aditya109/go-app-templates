@@ -1,4 +1,4 @@
-module github.com/aditya109/go-app-template/http-server
+module github.com/aditya109/go-server-template
 
 go 1.17
 

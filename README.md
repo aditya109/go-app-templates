@@ -1,7 +1,7 @@
-# go-applications
+# go-server
 
 To run go-server, type
 
-```sh
-cd http-server && go run cmd/server/main.go
+```bash
+go run cmd/server/main.go
 ```

@@ -3,7 +3,7 @@ package router
 import (
 	"net/http"
 
-	h "github.com/aditya109/go-app-template/http-server/internal/handlers"
+	h "github.com/aditya109/go-server-template/internal/handlers"
 )
 
 type Route struct {
@@ -21,5 +21,11 @@ var routes = Routes{
 		"GET",
 		"/",
 		h.WelcomeHandler,
+	},
+	Route{
+		"SimpleGetHandler",
+		"GET",
+		"/items",
+		h.SimpleGetHandler,
 	},
 }

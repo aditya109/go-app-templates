@@ -3,7 +3,12 @@ package logwrapper
 import (
 	"os"
 
+	cfg "github.com/aditya109/go-server-template/pkg/config"
 	log "github.com/sirupsen/logrus"
+)
+
+var (
+	config *cfg.Config
 )
 
 // StandardLogger enforces specific log message formats
@@ -12,11 +17,15 @@ type StandardLogger struct {
 }
 
 // NewLogger returns a configured logger object
-func NewLogger(env string) *StandardLogger {
+func NewLogger(env ...string) *StandardLogger {
+	if len(env) == 0 {
+		config = cfg.GetConfiguration()
+		env = []string{config.Server.Env}
+	}
 	var baseLogger = log.New()
 	var standardLogger = &StandardLogger{baseLogger}
 
-	switch env {
+	switch env[0] {
 	case "dev":
 		standardLogger.Formatter = &log.TextFormatter{
 			DisableColors: false,
