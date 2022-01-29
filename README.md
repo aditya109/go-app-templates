@@ -3,6 +3,5 @@
 To run go-server, type
 
 ```sh
-cd server && go run cmd/server/main.go
+cd http-server && go run cmd/server/main.go
 ```
-
