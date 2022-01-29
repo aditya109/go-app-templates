@@ -3,12 +3,9 @@ package router
 import (
 	"net/http"
 
-	log "github.com/aditya109/go-server-template/pkg/logwrapper"
 	"github.com/go-openapi/runtime/middleware"
 	"github.com/gorilla/mux"
 )
-
-var logger = log.NewLogger()
 
 func ConfigureRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
@@ -17,9 +14,9 @@ func ConfigureRouter() *mux.Router {
 		handler = route.HandlerFunction
 		handler = ConfigureHandler(handler, route)
 		router.
-			Methods("GET").
-			Path("/").
-			Name("Welcome Router").
+			Methods(route.Method).
+			Path(route.Pattern).
+			Name(route.Name).
 			Handler(handler)
 	}
 

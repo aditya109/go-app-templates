@@ -26,25 +26,54 @@ paths:
           $ref: '#/responses/WelcomeResponse'
       tags:
       - home
+  /item/{id}:
+    get:
+      description: Returns an item with id from the existing list of items
+      operationId: listItem
+      responses:
+        "200":
+          $ref: '#/responses/GetItemWithIdReponse'
+      tags:
+      - item
   /items:
     get:
       description: Returns a list of items, no query params required
       operationId: listItems
       responses:
         "200":
-          $ref: '#/responses/SimpleGetResponse'
+          $ref: '#/responses/SimpleGetItemsResponse'
+      tags:
+      - items
+  /items?id=12&name=Bertine:
+    get:
+      description: Returns items filtered by query parameters from the existing list
+        of items
+      operationId: listItems
+      responses:
+        "200":
+          $ref: '#/responses/GetWithQueryParamsReponse'
       tags:
       - items
 produces:
 - application/json
 responses:
-  SimpleGetResponse:
-    description: A list of items returns in the response
+  GetItemWithIdResponse:
+    description: An item returned in response
+    schema:
+      $ref: '#/definitions/Item'
+  GetItemWithQueryParamResponse:
+    description: An item returned in response
     schema:
       items:
         $ref: '#/definitions/Item'
       type: array
-  welcomeResponse:
+  SimpleGetItemsResponse:
+    description: A list of items returned in the response
+    schema:
+      items:
+        $ref: '#/definitions/Item'
+      type: array
+  WelcomeResponse:
     description: A welcome response shown on / URL
     schema:
       type: string

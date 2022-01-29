@@ -22,7 +22,7 @@ var routes = Routes{
 	// responses:
 	// 	200: WelcomeResponse
 	Route{
-		"WelcomeHandler",
+		"Welcome",
 		"GET",
 		"/",
 		h.WelcomeHandler,
@@ -30,11 +30,44 @@ var routes = Routes{
 	// swagger:route GET /items items listItems
 	// Returns a list of items, no query params required
 	// responses:
-	// 	200: SimpleGetResponse
+	// 	200: SimpleGetItemsResponse
 	Route{
-		"SimpleGetHandler",
+		"SimpleGetItems",
 		"GET",
 		"/items",
-		h.SimpleGetHandler,
+		h.SimpleGetItemsHandler,
+	},
+	// swagger:route GET /item/{id} item listItem
+	// Returns an item with id from the existing list of items
+	// responses:
+	// 	200: GetItemWithIdReponse
+	Route{
+		"GetItemWithId",
+		"GET",
+		"/item/{id}",
+		h.GetItemWithIdHandler,
+	},
+
+	// TODO:
+	// swagger:route GET /items?id=12&name=Bertine items listItems
+	// Returns items filtered by query parameters from the existing list of items
+	// responses:
+	// 	200: GetWithQueryParamsReponse
+	Route{
+		"GetWithQueryParams",
+		"GET",
+		"/item/{id}",
+		h.GetWithQueryParamsHandler,
+	},
+	// TODO:
+	// swagger:route GET /item/{id} item listItem
+	// Returns an item with id from the existing list of items
+	// responses:
+	// 	200: GetItemWithIdReponse
+	Route{
+		"GetItemWithIdHandler",
+		"GET",
+		"/item/{id}",
+		h.GetItemWithIdHandler,
 	},
 }

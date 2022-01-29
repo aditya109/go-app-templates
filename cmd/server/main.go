@@ -36,8 +36,6 @@ var (
 	readTimeout  time.Duration
 )
 
-// @title Sample API
-// @version
 func main() {
 	// retrieving configuration
 	config = cfg.GetConfiguration()
@@ -82,7 +80,6 @@ func main() {
 
 	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
 	logger.Info(fmt.Sprintf("swagger docs can be viewed at %s://%s/docs", prefix, endpoint))
-
 
 	// configuring server
 	srv := &http.Server{
