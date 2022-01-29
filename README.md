@@ -1,3 +1,8 @@
-# go-server
+# go-applications
 
-To run type `go run cmd/server/main.go`.
+To run go-server, type
+
+```sh
+cd server && go run cmd/server/main.go
+```
+
