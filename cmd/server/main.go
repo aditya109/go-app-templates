@@ -37,22 +37,29 @@ var (
 )
 
 func main() {
-	// retrieving configuration
-	config = cfg.GetConfiguration()
-	// initializing logger
-	logger = log.NewLogger(config.Server.Env)
-
-	// getting environment from config
-	environment = config.Server.Env
-
-	// getting http port from config
-	for _, v := range config.Server.Ports {
-		if v.Name == "http-port" {
-			httpPort = v.Port
-		}
+	config = cfg.GetConfiguration()           // retrieving configuration
+	logger = log.NewLogger(config.Server.Env) // initializing logger
+	environment = config.Server.Env           // getting environment from config
+	setEndpointFromConfigObject()             // getting endpoint from config
+	setHttpPortFromConfigObject()             // getting http port from config
+	setTimeoutsFromConfigObject()             // getting timeouts from config
+	// configuring router for the server
+	router := rt.ConfigureRouter()
+	logger.Info("router configuration successful")
+	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
+	logger.Info(fmt.Sprintf("swagger docs can be viewed at %s://%s/docs", prefix, endpoint))
+	// configuring server
+	srv := &http.Server{
+		Handler:      router,
+		Addr:         endpoint,
+		WriteTimeout: writeTimeout,
+		ReadTimeout:  readTimeout,
 	}
+	logger.Fatal(srv.ListenAndServe())
+}
 
-	// getting endpoint from config
+// setEndpointFromConfigObject sets endpoint IP from config object
+func setEndpointFromConfigObject() {
 	for _, v := range config.Server.Endpoints {
 		if v.EnvType == environment {
 			if v.TlsEnabled {
@@ -63,8 +70,20 @@ func main() {
 			endpoint = fmt.Sprintf("%s:%d", v.Name, httpPort)
 		}
 	}
+}
 
-	// getting timeouts from config
+// setHttpPortFromConfigObject sets httpPort variable to port mentioned in the config object
+func setHttpPortFromConfigObject() {
+
+	for _, v := range config.Server.Ports {
+		if v.Name == "http-port" {
+			httpPort = v.Port
+		}
+	}
+}
+
+// setTimeoutsFromConfigObject sets writeTimeout and readTimeout from config object
+func setTimeoutsFromConfigObject() {
 	for _, v := range config.Server.Timeouts {
 		if v.Name == "write-timeout" {
 			writeTimeout = time.Duration(v.Value) * time.Second
@@ -73,20 +92,4 @@ func main() {
 			readTimeout = time.Duration(v.Value) * time.Second
 		}
 	}
-
-	// configuring router for the server
-	router := rt.ConfigureRouter()
-	logger.Info("router configuration successful")
-
-	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
-	logger.Info(fmt.Sprintf("swagger docs can be viewed at %s://%s/docs", prefix, endpoint))
-
-	// configuring server
-	srv := &http.Server{
-		Handler:      router,
-		Addr:         endpoint,
-		WriteTimeout: writeTimeout,
-		ReadTimeout:  readTimeout,
-	}
-	logger.Fatal(srv.ListenAndServe())
 }
