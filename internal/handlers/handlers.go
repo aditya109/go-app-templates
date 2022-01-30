@@ -43,8 +43,8 @@ func GetItemsHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Info(fmt.Sprintf("STATUS: %d === /items route was hit", responseStatusCode))
 }
 
-// GetItemWithIdHandler returns item with specified id
-func GetItemWithIdHandler(w http.ResponseWriter, r *http.Request) {
+// GetItemWithIDHandler returns item with specified id
+func GetItemWithIDHandler(w http.ResponseWriter, r *http.Request) {
 	var responseStatusCode int
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
@@ -56,7 +56,7 @@ func GetItemWithIdHandler(w http.ResponseWriter, r *http.Request) {
 		logger.Error(err)
 		w.Write([]byte(fmt.Sprintf("error occurred while type-casting id, %s", err.Error())))
 	}
-	item, err := svc.GetItemById(int64(id))
+	item, err := svc.GetItemByID(int64(id))
 	if err != nil {
 		responseStatusCode = http.StatusInternalServerError
 		logger.Error(err)
@@ -84,7 +84,7 @@ func GetWithQueryParamsHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Content-Type", "application/json")
 
-	items, err := svc.GetItemsByIdAndName(idParam, nameParam)
+	items, err := svc.GetItemsByIDAndName(idParam, nameParam)
 	if err != nil {
 		responseStatusCode = http.StatusInternalServerError
 		logger.Error(err)

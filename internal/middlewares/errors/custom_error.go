@@ -4,6 +4,7 @@ import (
 	"fmt"
 )
 
+// AppError is a custom error used within this application to raise custom exceptions
 type AppError struct {
 	Cause string
 }

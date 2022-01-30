@@ -1,7 +1,7 @@
 package models
 
-// Items defines the structure of an API item
+// Item defines the structure of an API item
 type Item struct {
-	Id   int64
+	ID   int64
 	Name string
 }

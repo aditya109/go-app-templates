@@ -9,55 +9,58 @@ import (
 )
 
 var logger = log.NewLogger()
+var items = []model.Item{
+	{
+		ID:   66,
+		Name: "Heidt",
+	},
+	{
+		ID:   12,
+		Name: "Bertine",
+	},
+	{
+		ID:   59,
+		Name: "Vastah",
+	},
+	{
+		ID:   39,
+		Name: "Frendel",
+	},
+}
 
+// GetAllItems gets all items present in the system
 func GetAllItems() ([]model.Item, error) {
-	var items = []model.Item{
-		{
-			Id:   66,
-			Name: "Heidt",
-		},
-		{
-			Id:   12,
-			Name: "Bertine",
-		},
-		{
-			Id:   59,
-			Name: "Vastah",
-		},
-		{
-			Id:   39,
-			Name: "Frendel",
-		},
-	}
 	return items, nil
 }
 
-func GetItemById(id int64) (model.Item, error) {
+// GetItemByID gets item by ID
+func GetItemByID(id int64) (model.Item, error) {
 	items, err := GetAllItems()
 	if err != nil {
 		logger.Error(err)
 	}
 	for _, v := range items {
-		if v.Id == id {
+		if v.ID == id {
 			return v, nil
 		}
 	}
 	return model.Item{}, &mwd.AppError{
-		Cause: fmt.Sprintf("item with Id=%d not present", id),
+		Cause: fmt.Sprintf("item with ID=%d not present", id),
 	}
 }
 
-func GetItemsByIdAndName(id int64, name string) ([]model.Item, error) {
+// GetItemsByIDAndName gets a list of items filtered by ID and Name
+func GetItemsByIDAndName(id int64, name string) ([]model.Item, error) {
 	items, err := GetAllItems()
 	if err != nil {
 		logger.Error(err)
 	}
 	for _, v := range items {
-		if v.Id == id && v.Name == name {
+		if v.ID == id && v.Name == name {
 			return []model.Item{v}, nil
 		}
 	}
 	return []model.Item{}, &mwd.AppError{
-		Cause: fmt.Sprintf("item with Id=%d not present", id),
+		Cause: fmt.Sprintf("item with ID=%d not present", id),
 	}
 }

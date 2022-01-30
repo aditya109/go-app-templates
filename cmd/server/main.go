@@ -37,50 +37,17 @@ var (
 )
 
 func main() {
-	// retrieving configuration
-	config = cfg.GetConfiguration()
-	// initializing logger
-	logger = log.NewLogger(config.Server.Env)
-
-	// getting environment from config
-	environment = config.Server.Env
-
-	// getting http port from config
-	for _, v := range config.Server.Ports {
-		if v.Name == "http-port" {
-			httpPort = v.Port
-		}
-	}
-
-	// getting endpoint from config
-	for _, v := range config.Server.Endpoints {
-		if v.EnvType == environment {
-			if v.TlsEnabled {
-				prefix = "https"
-			} else {
-				prefix = "http"
-			}
-			endpoint = fmt.Sprintf("%s:%d", v.Name, httpPort)
-		}
-	}
-
-	// getting timeouts from config
-	for _, v := range config.Server.Timeouts {
-		if v.Name == "write-timeout" {
-			writeTimeout = time.Duration(v.Value) * time.Second
-		}
-		if v.Name == "read-timeout" {
-			readTimeout = time.Duration(v.Value) * time.Second
-		}
-	}
-
+	config = cfg.GetConfiguration()           // retrieving configuration
+	logger = log.NewLogger(config.Server.Env) // initializing logger
+	environment = config.Server.Env           // getting environment from config
+	setHTTPPortFromConfigObject()             // getting http port from config
+	setEndpointFromConfigObject()             // getting endpoint from config
+	setTimeoutsFromConfigObject()             // getting timeouts from config
 	// configuring router for the server
 	router := rt.ConfigureRouter()
 	logger.Info("router configuration successful")
-
 	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
 	logger.Info(fmt.Sprintf("swagger docs can be viewed at %s://%s/docs", prefix, endpoint))
-
 	// configuring server
 	srv := &http.Server{
 		Handler:      router,
@@ -89,4 +56,39 @@ func main() {
 		ReadTimeout:  readTimeout,
 	}
 	logger.Fatal(srv.ListenAndServe())
+}
+
+// setEndpointFromConfigObject sets endpoint IP from config object
+func setEndpointFromConfigObject() {
+	for _, v := range config.Server.Endpoints {
+		if v.EnvType == environment {
+			if v.TLSEnabled {
+				prefix = "https"
+			} else {
+				prefix = "http"
+			}
+			endpoint = fmt.Sprintf("%s:%d", v.Name, httpPort)
+		}
+	}
+}
+
+// setHTTPPortFromConfigObject sets httpPort variable to port mentioned in the config object
+func setHTTPPortFromConfigObject() {
+	for _, v := range config.Server.Ports {
+		if v.Name == "http-port" {
+			httpPort = v.Port
+		}
+	}
+}
+
+// setTimeoutsFromConfigObject sets writeTimeout and readTimeout from config object
+func setTimeoutsFromConfigObject() {
+	for _, v := range config.Server.Timeouts {
+		if v.Name == "write-timeout" {
+			writeTimeout = time.Duration(v.Value) * time.Second
+		}
+		if v.Name == "read-timeout" {
+			readTimeout = time.Duration(v.Value) * time.Second
+		}
+	}
 }
