@@ -11,16 +11,11 @@ func ConfigureRouter() *mux.Router {
 	for _, route := range routes {
 		var handler http.Handler
 		if route.HandlerFunction != nil {
-			handler = route.HandlerFunction
-			handler = ConfigureHandler(handler, route)
+			handler = ConfigureHandler(route.HandlerFunction, route)
 		} else {
 			handler = route.Handler
 		}
-		router.
-			Methods(route.Method).
-			Path(route.Pattern).
-			Name(route.Name).
-			Handler(handler)
+		router.Methods(route.Method).Path(route.Pattern).Name(route.Name).Handler(handler)
 	}
 	return router
 }
