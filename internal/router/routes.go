@@ -4,6 +4,7 @@ import (
 	"net/http"
 
 	h "github.com/aditya109/go-server-template/internal/handlers"
+	"github.com/go-openapi/runtime/middleware"
 )
 
 type Route struct {
@@ -11,6 +12,7 @@ type Route struct {
 	Method          string
 	Pattern         string
 	HandlerFunction http.HandlerFunc
+	Handler         http.Handler
 }
 
 type Routes []Route
@@ -26,6 +28,7 @@ var routes = Routes{
 		"GET",
 		"/",
 		h.WelcomeHandler,
+		nil,
 	},
 	// swagger:route GET /items items listItems
 	// Returns a list of items, no query params required
@@ -36,6 +39,7 @@ var routes = Routes{
 		"GET",
 		"/items",
 		h.GetItemsHandler,
+		nil,
 	},
 	// swagger:route GET /item/{id} item listItemById
 	// Returns an item with id from the existing list of items
@@ -46,6 +50,7 @@ var routes = Routes{
 		"GET",
 		"/item/{id}",
 		h.GetItemWithIdHandler,
+		nil,
 	},
 
 	// swagger:route GET /item item listFilteredItems
@@ -57,5 +62,26 @@ var routes = Routes{
 		"GET",
 		"/item",
 		h.GetWithQueryParamsHandler,
+		nil,
+	},
+
+	// swagger:route GET /docs docs swaggerDocumentation
+	// Returns swagger specification uunder OpenAPIv3 documeted APIs
+	Route{
+		"swaggerDocumentation",
+		"GET",
+		"/docs",
+		nil,
+		middleware.Redoc(middleware.RedocOpts{
+			SpecURL: "/swagger.yaml",
+		}, nil),
+	},
+
+	Route{
+		"Swagger JSON",
+		"GET",
+		"/swagger.yaml",
+		nil,
+		http.FileServer(http.Dir("./api/swagger")),
 	},
 }

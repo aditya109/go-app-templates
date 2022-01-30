@@ -40,8 +40,8 @@ func main() {
 	config = cfg.GetConfiguration()           // retrieving configuration
 	logger = log.NewLogger(config.Server.Env) // initializing logger
 	environment = config.Server.Env           // getting environment from config
-	setEndpointFromConfigObject()             // getting endpoint from config
 	setHttpPortFromConfigObject()             // getting http port from config
+	setEndpointFromConfigObject()             // getting endpoint from config
 	setTimeoutsFromConfigObject()             // getting timeouts from config
 	// configuring router for the server
 	router := rt.ConfigureRouter()
@@ -74,7 +74,6 @@ func setEndpointFromConfigObject() {
 
 // setHttpPortFromConfigObject sets httpPort variable to port mentioned in the config object
 func setHttpPortFromConfigObject() {
-
 	for _, v := range config.Server.Ports {
 		if v.Name == "http-port" {
 			httpPort = v.Port
