@@ -22,3 +22,4 @@ func GetAbsolutePath(relPath string) string {
 	path = filepath.Join(projectLocation[0], "go-server-template", splitRelativePath[0], splitRelativePath[1])
 	return path
 }
+
