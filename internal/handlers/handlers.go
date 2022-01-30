@@ -43,8 +43,8 @@ func GetItemsHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Info(fmt.Sprintf("STATUS: %d === /items route was hit", responseStatusCode))
 }
 
-// GetItemWithIdHandler returns item with specified id
-func GetItemWithIdHandler(w http.ResponseWriter, r *http.Request) {
+// GetItemWithIDHandler returns item with specified id
+func GetItemWithIDHandler(w http.ResponseWriter, r *http.Request) {
 	var responseStatusCode int
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])

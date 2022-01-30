@@ -49,7 +49,7 @@ var routes = Routes{
 		"GetItemWithId",
 		"GET",
 		"/item/{id}",
-		h.GetItemWithIdHandler,
+		h.GetItemWithIDHandler,
 		nil,
 	},
 
