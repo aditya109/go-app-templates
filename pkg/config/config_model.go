@@ -22,12 +22,12 @@ type Port struct {
 // Endpoint is an entry in Endpoints for qualified endpoints
 type Endpoint struct {
 	Name       string `yaml:"name"`
-	TlsEnabled bool   `yaml:"tlsEnabled"`
+	TLSEnabled bool   `yaml:"tlsEnabled"`
 	EnvType    string `yaml:"envType"`
 }
 
 // Timeout is an entry in Timeouts for server-timeouts
 type Timeout struct {
 	Name  string `yaml:"name"`
-	Value int  `yaml:"value"`
+	Value int    `yaml:"value"`
 }

@@ -62,7 +62,7 @@ func main() {
 func setEndpointFromConfigObject() {
 	for _, v := range config.Server.Endpoints {
 		if v.EnvType == environment {
-			if v.TlsEnabled {
+			if v.TLSEnabled {
 				prefix = "https"
 			} else {
 				prefix = "http"
