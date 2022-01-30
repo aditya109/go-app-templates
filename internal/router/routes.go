@@ -7,6 +7,7 @@ import (
 	"github.com/go-openapi/runtime/middleware"
 )
 
+// Route is container template for server routes
 type Route struct {
 	Name            string
 	Method          string
@@ -15,9 +16,9 @@ type Route struct {
 	Handler         http.Handler
 }
 
-type Routes []Route
+type routes []Route
 
-var routes = Routes{
+var routeList = routes{
 
 	// swagger:route GET / home welcome
 	// Returns a welcome message

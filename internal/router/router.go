@@ -9,7 +9,7 @@ import (
 // ConfigureRouter provides a route-configured *mux.Router object
 func ConfigureRouter() *mux.Router {
 	router := mux.NewRouter().StrictSlash(true)
-	for _, route := range routes {
+	for _, route := range routeList {
 		var handler http.Handler
 		if route.HandlerFunction != nil {
 			handler = ConfigureHandler(route.HandlerFunction, route)
