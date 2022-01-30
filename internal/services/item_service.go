@@ -28,10 +28,12 @@ var items = []model.Item{
 	},
 }
 
+// GetAllItems gets all items present in the system
 func GetAllItems() ([]model.Item, error) {
 	return items, nil
 }
 
+// GetItemByID gets item by ID
 func GetItemByID(id int64) (model.Item, error) {
 	items, err := GetAllItems()
 	if err != nil {
@@ -47,6 +49,7 @@ func GetItemByID(id int64) (model.Item, error) {
 	}
 }
 
+// GetItemsByIDAndName gets a list of items filtered by ID and Name
 func GetItemsByIDAndName(id int64, name string) ([]model.Item, error) {
 	items, err := GetAllItems()
 	if err != nil {
