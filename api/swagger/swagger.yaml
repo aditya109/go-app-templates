@@ -26,10 +26,20 @@ paths:
           $ref: '#/responses/WelcomeResponse'
       tags:
       - home
+  /item:
+    get:
+      description: Returns items filtered by query parameters from the existing list
+        of items
+      operationId: listFilteredItems
+      responses:
+        "200":
+          $ref: '#/responses/GetWithQueryParamsReponse'
+      tags:
+      - item
   /item/{id}:
     get:
       description: Returns an item with id from the existing list of items
-      operationId: listItem
+      operationId: listItemById
       responses:
         "200":
           $ref: '#/responses/GetItemWithIdReponse'
@@ -41,17 +51,7 @@ paths:
       operationId: listItems
       responses:
         "200":
-          $ref: '#/responses/SimpleGetItemsResponse'
-      tags:
-      - items
-  /items?id=12&name=Bertine:
-    get:
-      description: Returns items filtered by query parameters from the existing list
-        of items
-      operationId: listItems
-      responses:
-        "200":
-          $ref: '#/responses/GetWithQueryParamsReponse'
+          $ref: '#/responses/GetItemsResponse'
       tags:
       - items
 produces:

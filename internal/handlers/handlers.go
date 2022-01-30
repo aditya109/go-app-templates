@@ -24,10 +24,11 @@ func WelcomeHandler(w http.ResponseWriter, r *http.Request) {
 	logger.Info(fmt.Sprintf("STATUS: %d === / route was hit", responseStatusCode))
 }
 
-// SimpleGetItemsHandler returns a static list of items, no query params required
-func SimpleGetItemsHandler(w http.ResponseWriter, r *http.Request) {
+// GetItemsHandler returns a static list of items, no query params required
+func GetItemsHandler(w http.ResponseWriter, r *http.Request) {
 	var responseStatusCode int
 	w.Header().Set("Access-Control-Allow-Origin", "*")
+	w.Header().Set("Content-Type", "application/json")
 	items, err := svc.GetAllItems()
 	if err != nil {
 		responseStatusCode = http.StatusInternalServerError
@@ -37,7 +38,6 @@ func SimpleGetItemsHandler(w http.ResponseWriter, r *http.Request) {
 	} else {
 		responseStatusCode = http.StatusOK
 		w.WriteHeader(responseStatusCode)
-		w.Header().Set("Content-Type", "application/json")
 		json.NewEncoder(w).Encode(items)
 	}
 	logger.Info(fmt.Sprintf("STATUS: %d === /items route was hit", responseStatusCode))

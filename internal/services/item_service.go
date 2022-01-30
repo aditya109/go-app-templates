@@ -2,7 +2,6 @@ package services
 
 import (
 	"fmt"
-	"time"
 
 	mwd "github.com/aditya109/go-server-template/internal/middlewares/errors"
 	model "github.com/aditya109/go-server-template/internal/models"
@@ -44,7 +43,6 @@ func GetItemById(id int64) (model.Item, error) {
 		}
 	}
 	return model.Item{}, &mwd.AppError{
-		When:  time.Now(),
 		Cause: fmt.Sprintf("item with Id=%d not present", id),
 	}
 }
@@ -60,7 +58,6 @@ func GetItemsByIdAndName(id int64, name string) ([]model.Item, error) {
 		}
 	}
 	return []model.Item{}, &mwd.AppError{
-		When:  time.Now(),
 		Cause: fmt.Sprintf("item with Id=%d not present", id),
 	}
 }
