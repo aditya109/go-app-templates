@@ -1,6 +1,6 @@
 # go-server
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/8fd3dc9d41874fabb68f0f8bb8bc12d3)](https://app.codacy.com/gh/aditya109/go-server-template?utm_source=github.com&utm_medium=referral&utm_content=aditya109/go-server-template&utm_campaign=Badge_Grade_Settings)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/5ccf2017e3224bc3b3ded794dce4c86c)](https://www.codacy.com/gh/aditya109/go-server-template/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=aditya109/go-server-template&amp;utm_campaign=Badge_Grade)
 
 To run go-server, type
 
