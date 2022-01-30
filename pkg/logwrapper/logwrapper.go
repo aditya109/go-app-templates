@@ -24,24 +24,21 @@ func NewLogger(env ...string) *StandardLogger {
 	}
 	var baseLogger = log.New()
 	var standardLogger = &StandardLogger{baseLogger}
-
 	switch env[0] {
-	case "dev":
-		standardLogger.Formatter = &log.TextFormatter{
-			DisableColors: false,
-			FullTimestamp: true,
-		}
-		standardLogger.Out = os.Stdout
-	case "prod":
-		standardLogger.Formatter = &log.JSONFormatter{}
-		// standardLogger.Out = os.Stdout
-	case "stag":
-		standardLogger.Formatter = &log.TextFormatter{}
-		standardLogger.Out = os.Stdout
-	default:
-		standardLogger.Formatter = &log.TextFormatter{}
-		standardLogger.Out = os.Stdout
+		case "dev":
+			standardLogger.Formatter = &log.TextFormatter{
+				DisableColors: false,
+				FullTimestamp: true,
+			}
+			standardLogger.Out = os.Stdout
+		case "prod":
+			standardLogger.Formatter = &log.JSONFormatter{}
+		case "stag":
+			standardLogger.Formatter = &log.TextFormatter{}
+			standardLogger.Out = os.Stdout
+		default:
+			standardLogger.Formatter = &log.TextFormatter{}
+			standardLogger.Out = os.Stdout
 	}
-
 	return standardLogger
 }

@@ -2,7 +2,7 @@ package responses
 
 import "github.com/aditya109/go-server-template/internal/models"
 
-// An item returned in response
+// GetItemWithQueryParamResponseWrapper is an item returned in response
 // swagger:response GetItemWithQueryParamResponse
 type GetItemWithQueryParamResponseWrapper struct {
 	// Item in the system
