@@ -8,11 +8,10 @@ import (
 
 	resp "github.com/aditya109/go-server-template/internal/responses"
 	svc "github.com/aditya109/go-server-template/internal/services"
-	log "github.com/aditya109/go-server-template/pkg/logwrapper"
+	logger "github.com/sirupsen/logrus"
+
 	"github.com/gorilla/mux"
 )
-
-var logger = log.NewLogger()
 
 // WelcomeHandler returns welcome message for home URL
 func WelcomeHandler(w http.ResponseWriter, r *http.Request) {

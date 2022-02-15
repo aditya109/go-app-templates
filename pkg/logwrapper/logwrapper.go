@@ -1,6 +1,8 @@
 package logwrapper
 
 import (
+	"fmt"
+	"io"
 	"os"
 
 	cfg "github.com/aditya109/go-server-template/pkg/config"
@@ -11,34 +13,32 @@ var (
 	config *cfg.Config
 )
 
-// StandardLogger enforces specific log message formats
-type StandardLogger struct {
-	*log.Logger
-}
+// InitializeLogging returns a configured logger object
+func InitializeLogging() {
+	config = cfg.GetConfiguration()
+	env := config.Server.Env
+	switch env {
+	case "dev":
+		f, err := os.OpenFile("baremetrix.log", os.O_APPEND|os.O_CREATE|os.O_RDWR, 0666)
+		if err != nil {
+			fmt.Printf("error opening file: %v", err)
+		}
+		// don't forget to close it
+		// defer f.Close()
 
-// NewLogger returns a configured logger object
-func NewLogger(env ...string) *StandardLogger {
-	if len(env) == 0 {
-		config = cfg.GetConfiguration()
-		env = []string{config.Server.Env}
+		mw := io.MultiWriter(os.Stdout, f)
+		log.SetOutput(mw)
+		log.SetFormatter(&log.TextFormatter{
+			DisableColors: false,
+			FullTimestamp: true,
+		})
+	case "prod":
+		log.SetFormatter(&log.JSONFormatter{})
+	case "stag":
+		log.SetFormatter(&log.TextFormatter{})
+		log.SetOutput(os.Stdout)
+	default:
+		log.SetFormatter(&log.TextFormatter{})
+		log.SetOutput(os.Stdout)
 	}
-	var baseLogger = log.New()
-	var standardLogger = &StandardLogger{baseLogger}
-	switch env[0] {
-		case "dev":
-			standardLogger.Formatter = &log.TextFormatter{
-				DisableColors: false,
-				FullTimestamp: true,
-			}
-			standardLogger.Out = os.Stdout
-		case "prod":
-			standardLogger.Formatter = &log.JSONFormatter{}
-		case "stag":
-			standardLogger.Formatter = &log.TextFormatter{}
-			standardLogger.Out = os.Stdout
-		default:
-			standardLogger.Formatter = &log.TextFormatter{}
-			standardLogger.Out = os.Stdout
-	}
-	return standardLogger
 }

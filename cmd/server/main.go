@@ -22,12 +22,12 @@ import (
 
 	rt "github.com/aditya109/go-server-template/internal/router"
 	cfg "github.com/aditya109/go-server-template/pkg/config"
-	log "github.com/aditya109/go-server-template/pkg/logwrapper"
+	logCfg "github.com/aditya109/go-server-template/pkg/logwrapper"
+	logger "github.com/sirupsen/logrus"
 )
 
 var (
 	config       *cfg.Config
-	logger       *log.StandardLogger
 	environment  string
 	httpPort     int64
 	prefix       string
@@ -37,17 +37,18 @@ var (
 )
 
 func main() {
-	config = cfg.GetConfiguration()           // retrieving configuration
-	logger = log.NewLogger(config.Server.Env) // initializing logger
-	environment = config.Server.Env           // getting environment from config
-	setHTTPPortFromConfigObject()             // getting http port from config
-	setEndpointFromConfigObject()             // getting endpoint from config
-	setTimeoutsFromConfigObject()             // getting timeouts from config
+	config = cfg.GetConfiguration() // retrieving configuration
+	logCfg.InitializeLogging()      // initializing logger
+	environment = config.Server.Env // getting environment from config
+	setHTTPPortFromConfigObject()   // getting http port from config
+	setEndpointFromConfigObject()   // getting endpoint from config
+	setTimeoutsFromConfigObject()   // getting timeouts from config
 	// configuring router for the server
 	router := rt.ConfigureRouter()
 	logger.Info("router configuration successful")
 	logger.Info(fmt.Sprintf("starting server at %s://%s", prefix, endpoint))
 	logger.Info(fmt.Sprintf("swagger docs can be viewed at %s://%s/docs", prefix, endpoint))
+
 	// configuring server
 	srv := &http.Server{
 		Handler:      router,

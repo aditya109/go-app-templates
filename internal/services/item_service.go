@@ -5,10 +5,9 @@ import (
 
 	mwd "github.com/aditya109/go-server-template/internal/middlewares/errors"
 	model "github.com/aditya109/go-server-template/internal/models"
-	log "github.com/aditya109/go-server-template/pkg/logwrapper"
+	logger "github.com/sirupsen/logrus"
 )
 
-var logger = log.NewLogger()
 var items = []model.Item{
 	{
 		ID:   66,
