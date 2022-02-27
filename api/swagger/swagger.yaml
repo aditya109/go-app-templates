@@ -1,21 +1,15 @@
-basePath: /
-consumes:
-- application/json
 definitions:
   Item:
-    description: Items defines the structure of an API item
+    description: Item defines the structure of an API item
     properties:
-      Id:
+      ID:
         format: int64
         type: integer
       Name:
         type: string
     type: object
     x-go-package: github.com/aditya109/go-server-template/internal/models
-info:
-  description: Documentation of crud-template API
-  title: http API
-  version: 1.0.0
+info: {}
 paths:
   /:
     get:
@@ -26,6 +20,12 @@ paths:
           $ref: '#/responses/WelcomeResponse'
       tags:
       - home
+  /docs:
+    get:
+      description: Returns swagger specification uunder OpenAPIv3 documeted APIs
+      operationId: swaggerDocumentation
+      tags:
+      - docs
   /item:
     get:
       description: Returns items filtered by query parameters from the existing list
@@ -54,29 +54,25 @@ paths:
           $ref: '#/responses/GetItemsResponse'
       tags:
       - items
-produces:
-- application/json
 responses:
   GetItemWithIdResponse:
-    description: An item returned in response
+    description: GetItemWithIDResponseWrapper is an item returned in response
     schema:
       $ref: '#/definitions/Item'
   GetItemWithQueryParamResponse:
-    description: An item returned in response
+    description: GetItemWithQueryParamResponseWrapper is an item returned in response
     schema:
       items:
         $ref: '#/definitions/Item'
       type: array
-  SimpleGetItemsResponse:
-    description: A list of items returned in the response
+  GetItemsResponse:
+    description: GetItemsResponseWrapper is a list of items returned in the response
     schema:
       items:
         $ref: '#/definitions/Item'
       type: array
   WelcomeResponse:
-    description: A welcome response shown on / URL
+    description: WelcomeResponseWrapper is a welcome response shown on / URL
     schema:
       type: string
-schemes:
-- http
 swagger: "2.0"
