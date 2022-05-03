@@ -32,7 +32,7 @@ func GetAbsolutePath(relPath string) (string, error) {
 
 // GetFormattedFileName gets a formatted filename
 func GetFormattedFileName(location models.PersistenceLocation) (string, error) {
-	var timeStamp = time.Now().Format("2006-01-02_15:04:05")
+	var timeStamp = time.Now().Format("2006-01-02_15-04-05")
 	path := location.ContainerDirectory
 	if _, err := os.Stat(path); errors.Is(err, os.ErrNotExist) {
 		err := os.MkdirAll(path, os.ModePerm)
@@ -41,6 +41,6 @@ func GetFormattedFileName(location models.PersistenceLocation) (string, error) {
 			return "", err
 		}
 	}
-	var logFileName = fmt.Sprintf("%s/%s_%s.%s", location.ContainerDirectory, location.TargetFileName[0], timeStamp, location.TargetFileExtension)
+	var logFileName = fmt.Sprintf("%s/%s_%s%s", location.ContainerDirectory, location.TargetFileName[0], timeStamp, location.TargetFileExtension)
 	return logFileName, nil
 }
