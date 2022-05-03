@@ -8,7 +8,7 @@ import (
 )
 
 func TestGetAbsolutePathForCorrectRelativePath(t *testing.T) {
-	result, err := GetAbsolutePath(`/config/config.json`)
+	result, err := GetAbsolutePath(`/config/config.json`, `go-server-template`)
 	if err != nil {
 		t.Errorf("%s", err.Error())
 	}
