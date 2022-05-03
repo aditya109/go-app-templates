@@ -5,19 +5,13 @@ import (
 	"os"
 
 	"github.com/aditya109/go-server-template/internal/models"
-	"github.com/aditya109/go-server-template/pkg/config"
 	"github.com/aditya109/go-server-template/pkg/helper"
 	logger "github.com/sirupsen/logrus"
 )
 
 // InitializeLogging returns a configured logger object
-func InitializeLogging() error {
-	// initializing a configuration object
-	config, err := config.GetConfiguration()
-	if err != nil {
-		logger.Error(err)
-		return err
-	}
+func InitializeLogging(config *models.Config) error {
+
 	if err := ConfigureLogger(config.ApplicationConfig.LevelledLogs); err != nil {
 		logger.Error(err)
 		return err

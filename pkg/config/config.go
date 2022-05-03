@@ -10,11 +10,11 @@ import (
 )
 
 // GetConfiguration retrieves configuration from config file or environment configuration(TODO:)
-func GetConfiguration() (*models.Config, error) {
+func GetConfiguration(projectName string) (*models.Config, error) {
 	// declaring a config object
 	var config = models.Config{}
 	// getting the absolute file path of the config file
-	var configFilePath, err = helper.GetAbsolutePath("/config/config.json")
+	var configFilePath, err = helper.GetAbsolutePath("/config/config.json", projectName)
 	if err != nil {
 		logger.Error(err)
 		return &models.Config{}, err

@@ -24,28 +24,21 @@ import (
 	"github.com/aditya109/go-server-template/internal/constants"
 	"github.com/aditya109/go-server-template/internal/models"
 	rt "github.com/aditya109/go-server-template/internal/router"
-	cfg "github.com/aditya109/go-server-template/pkg/config"
 	logger "github.com/sirupsen/logrus"
 )
 
 var (
-	config       *models.Config
-	httpPort     string
-	prefix       string
-	endpoint     string
-	writeTimeout time.Duration
-	readTimeout  time.Duration
-	err          error
-	envs         models.Envs
+	configuration *models.Config
+	httpPort      string
+	prefix        string
+	endpoint      string
+	writeTimeout  time.Duration
+	readTimeout   time.Duration
+	envs          models.Envs
 )
 
-func Start() {
-	config, err = cfg.GetConfiguration() // retrieving configuration
-	if err != nil {
-		logger.Fatal(err)
-		return
-	}
-
+func Start(config *models.Config) {
+	configuration = config
 	getApplicableEnvironmentVariablesFromConfig() // getting applicable environment variables from config
 	setHTTPPortFromConfigObject()                 // getting http port from config
 	setEndpointFromConfigObject()                 // getting endpoint from config
@@ -69,15 +62,15 @@ func Start() {
 
 // getApplicableEnvironmentVariablesFromConfig gets applicable environment variables from configuration
 func getApplicableEnvironmentVariablesFromConfig() {
-	switch config.ServerConfig.EnvironmentType {
+	switch configuration.ServerConfig.EnvironmentType {
 	case constants.DEV:
-		envs = config.ServerConfig.DevEnvs
+		envs = configuration.ServerConfig.DevEnvs
 	case constants.STAGING:
-		envs = config.ServerConfig.StagEnvs
+		envs = configuration.ServerConfig.StagEnvs
 	case constants.PRODUCTION:
-		envs = config.ServerConfig.ProdEnvs
+		envs = configuration.ServerConfig.ProdEnvs
 	default:
-		envs = config.ServerConfig.DevEnvs
+		envs = configuration.ServerConfig.DevEnvs
 	}
 }
 

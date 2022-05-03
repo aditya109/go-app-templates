@@ -12,10 +12,10 @@ import (
 	logger "github.com/sirupsen/logrus"
 )
 
-const PROJECT_NAME = "go-server-template"
 
 // GetAbsolutePath provides absolute path for a relative path -
-func GetAbsolutePath(relPath string) (string, error) {
+func GetAbsolutePath(relPath string, projectName string) (string, error) {
+	var PROJECT_NAME = projectName
 	if relPath[0] == '/' {
 		relPath = relPath[1:]
 	}
