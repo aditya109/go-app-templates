@@ -12,9 +12,10 @@ import (
 	logger "github.com/sirupsen/logrus"
 )
 
+const PROJECT_NAME = "go-server-template"
+
 // GetAbsolutePath provides absolute path for a relative path -
 func GetAbsolutePath(relPath string) (string, error) {
-	var projectName = "go-server-template"
 	if relPath[0] == '/' {
 		relPath = relPath[1:]
 	}
@@ -25,8 +26,8 @@ func GetAbsolutePath(relPath string) (string, error) {
 		logger.Error(err)
 		return "", err
 	}
-	projectLocation := strings.Split(cwd, projectName)
-	path = filepath.Join(projectLocation[0], projectName, splitRelativePath[0], splitRelativePath[1])
+	projectLocation := strings.Split(cwd, PROJECT_NAME)
+	path = filepath.Join(projectLocation[0], PROJECT_NAME, splitRelativePath[0], splitRelativePath[1])
 	return path, nil
 }
 
