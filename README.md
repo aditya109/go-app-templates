@@ -5,5 +5,15 @@
 To run go-server, type
 
 ```bash
-go run cmd/server/main.go
+go run main.go
 ```
+
+To run in debugging with (hot-reload),
+> Add this to ~/.bashrc. `alias air='$(go env GOPATH)/bin/air'`
+and then install the following go module.
+
+```bash
+go install github.com/cosmtrek/air@latest
+```
+
+Finally, run using `air` command.
