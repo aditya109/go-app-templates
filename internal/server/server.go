@@ -53,7 +53,7 @@ func Start(config *models.Config) {
 	// configuring server
 	srv := &http.Server{
 		Handler:      router,
-		Addr:         endpoint,
+		Addr:         fmt.Sprintf(":%s", httpPort),
 		WriteTimeout: writeTimeout,
 		ReadTimeout:  readTimeout,
 	}
@@ -86,7 +86,7 @@ func setEndpointFromConfigObject() {
 	} else {
 		prefix = "http"
 	}
-	endpoint = fmt.Sprintf("%s:%s", envs.ServerUri, httpPort)
+	endpoint = fmt.Sprintf("%s:%s", "localhost", httpPort)
 }
 
 // setTimeoutsFromConfigObject sets writeTimeout and readTimeout from config object

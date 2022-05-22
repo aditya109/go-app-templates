@@ -16,7 +16,7 @@ type ServerConfig struct {
 
 // Envs contains all the environment variables which is used in the dev setup.
 type Envs struct {
-	ServerUri    string `json:"server_uri,omitempty"`     // ServerUri defines the uri at which server is initiated.
+	// ServerUri    string `json:"server_uri,omitempty"`     // ServerUri defines the uri at which server is initiated.
 	ServerPort   string `json:"server_port,omitempty"`    // ServerPort defines the port at which server is initiated.
 	WriteTimeout int    `json:"write_timeout,omitempty"`  // WriteTimeout defines the write timeout for the server.
 	ReadTimeout  int    `json:"read_timeout,omitempty"`   // ReadTimeout defines the read timeout for the server.

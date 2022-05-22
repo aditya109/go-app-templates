@@ -1,0 +1,13 @@
+services:
+  server:
+    image: sample-server
+    container_name: backend-server
+    build:
+      context: .
+      args:
+        IS_RUNNING_IN_LOCAL: true
+    ports:
+      - 8000:8000
+configs:
+  my_config:
+    external: true
